@@ -1,12 +1,13 @@
 import express from 'express';
+import Server from './server';
+import config from './config';
+
+import loadAppSetup from './loaders';
 
 const app = express();
-const PORT = 4500;
 
-app.get('/', function (req, res) {
-	res.send('Hello world');
-});
+loadAppSetup({ app });
 
-app.listen(PORT, function () {
-	console.log(`App running on http://localhost:${PORT}`);
-});
+const server = new Server({ app, port: config.port });
+
+server.start();
